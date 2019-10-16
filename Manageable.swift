@@ -8,41 +8,53 @@
 
 import Foundation
 
-protocol Manageable: Codable {
-    
-    func coreDataDictionary() -> [String: Any]?
-
+public protocol Manageable: Codable {
     static func dateDecodingStrategy() -> JSONDecoder.DateDecodingStrategy
 }
 
 extension Manageable {
     
-    func coreDataDictionary() -> [String: Any]? {
-        return nil
-    }
-    
-    static func dateDecodingStrategy() -> JSONDecoder.DateDecodingStrategy {
+    public static func dateDecodingStrategy() -> JSONDecoder.DateDecodingStrategy {
         return .formatted(DateFormatter.iso8601Full)
     }
 }
 
+//MARK: - Public functions -
 extension Manageable {
     
-    static func getObjectList(jsonString: String)-> [Self] {
+    public func toJSONString()-> String {
+        let dict = try! self.toDictionary()
+        return Self.getJSONString(dict)
+    }
+    
+    public func toDictionary() throws -> [String: Any] {
+        let data = try JSONEncoder().encode(self)
+        guard let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
+            throw NSError()
+        }
+        return dictionary
+    }
+    
+    /// returns True deep copy of object
+    public func clone()-> Self {
         
-        let jsonData = jsonString.data(using: .utf8)!
+        let jsonData = try! JSONSerialization.data(withJSONObject: self.toDictionary(), options: .prettyPrinted)
         
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = dateDecodingStrategy()
+        decoder.dateDecodingStrategy = Self.dateDecodingStrategy()
         do {
-            let objArr = try decoder.decode([Self].self, from: jsonData)
-            return objArr
+            let obj = try decoder.decode(Self.self, from: jsonData)
+            return obj
         } catch {
             fatalError(error.localizedDescription)
         }
     }
+}
+
+//MARK: - Static functions -
+extension Manageable {
     
-    static func getObject(jsonString: String) -> Self {
+    public static func getObject(jsonString: String) -> Self {
         
         let jsonData = jsonString.data(using: .utf8)!
         
@@ -57,46 +69,45 @@ extension Manageable {
         }
     }
     
-    func toJSONString()-> String {
-        let dict = try! self.toDictionary()
-        return Self.getJSONString(dict)
-    }
-    
-    func toDictionary() throws -> [String: Any] {
-        let data = try JSONEncoder().encode(self)
-        guard let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
-            throw NSError()
-        }
-        return dictionary
-    }
-    
-    /// returns True deep copy of object
-    func clone()-> Self {
+    public static func getObjectList(jsonString: String)-> [Self] {
         
-        let jsonData = try! JSONSerialization.data(withJSONObject: self.toDictionary(), options: .prettyPrinted)
+        let jsonData = jsonString.data(using: .utf8)!
         
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = Self.dateDecodingStrategy()
+        decoder.dateDecodingStrategy = dateDecodingStrategy()
         do {
-            let obj = try decoder.decode(Self.self, from: jsonData)
-            return obj
+            let objArr = try decoder.decode([Self].self, from: jsonData)
+            return objArr
         } catch {
             fatalError(error.localizedDescription)
         }
     }
     
-    private static func getJSONString(_ from: [String: Any]) -> String {
+    public static func getObject(dictionary: [String: Any])-> Self {
+        let jsonString = Self.getJSONString(dictionary)
+        return Self.getObject(jsonString: jsonString)
+    }
+    
+    public static func getObjectList(dictionary: [[String: Any]])-> [Self] {
+        let jsonString = Self.getJSONString(dictionary)
+        return Self.getObjectList(jsonString: jsonString)
+    }
+}
+
+//MARK: - Private functions -
+extension Manageable {
+    private static func getJSONString(_ from: Any) -> String {
         let theJSONData = try! JSONSerialization.data(withJSONObject: from, options: .prettyPrinted)
         
         let theJSONText = String(data: theJSONData,
                                  encoding: String.Encoding.ascii)!
         
         return theJSONText
-
+        
     }
 }
 
-
+//MARK: - DateFormatter extension  -
 extension DateFormatter {
     
     static let iso8601Full: DateFormatter = {
