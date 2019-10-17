@@ -9,10 +9,15 @@
 import Foundation
 
 public protocol Manageable: Codable {
+    static func dateEncodingStrategy() -> JSONEncoder.DateEncodingStrategy
     static func dateDecodingStrategy() -> JSONDecoder.DateDecodingStrategy
 }
 
 extension Manageable {
+    
+    public static func dateEncodingStrategy() -> JSONEncoder.DateEncodingStrategy {
+        return .formatted(DateFormatter.iso8601Full)
+    }
     
     public static func dateDecodingStrategy() -> JSONDecoder.DateDecodingStrategy {
         return .formatted(DateFormatter.iso8601Full)
@@ -28,7 +33,9 @@ extension Manageable {
     }
     
     public func toDictionary() throws -> [String: Any] {
-        let data = try JSONEncoder().encode(self)
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = Self.dateEncodingStrategy()
+        let data = try encoder.encode(self)
         guard let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
             throw NSError()
         }
@@ -128,3 +135,4 @@ extension DateFormatter {
         return formatter
     }()
 }
+
