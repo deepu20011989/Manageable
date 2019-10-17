@@ -48,19 +48,31 @@ for Int it will return 0, for String it will return "" (blank string) for bool i
 	    let _id: Quantum
 	    var name: String
 	    var age: Int
+	    var dob: Date
     
-	    // Use of enum CodingKeys in case of custom keys else it will pick varable names as defualt keys for the variables
+	//  Use of enum CodingKeys in case of custom keys else it will pick varable names as defualt keys for the variables
 	    enum CodingKeys: String, CodingKey {
-	        case _id = "person_id"
-	        case name = "person_name"
-	        case age = "person_age"
+		case _id = "person_id"
+		case name = "person_name"
+		case age = "person_age"
+		case dob = "person_dob"
 	    }
 
-	    init(id: Quantum, name: String, age: Int) {
-	        self._id = id
-	        self.name = name
-	        self.age = age
-	    }	
+	    init(id: Quantum, name: String, age: Int, dob: Date) {
+		self._id = id
+		self.name = name
+		self.age = age
+		self.dob = dob
+	    }
+    
+	    static func dateEncodingStrategy() -> JSONEncoder.DateEncodingStrategy {
+		return .formatted(DateFormatter.yyyyMMdd)
+	    }
+    
+	    static func dateDecodingStrategy() -> JSONDecoder.DateDecodingStrategy {
+		return .formatted(DateFormatter.yyyyMMdd)
+	    }
+
 	}
 	
 	
