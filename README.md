@@ -13,13 +13,20 @@
 
 So these type of things can be of type Quantum and can be managed easily without writing any specific code.
 
-var age: Quantum = 10 OR var age: Quantum = "10"
+
+var age: Quantum = 10 
+var age: Quantum = "10"
 var id: Quantum = "12345"
+var _id: Quantum = "acdf1234Yt"
 
 we can also have the specific type from these in the following way
 
-let ageIntValue = age.intValue OR let ageStringValue = age.stringValue
-let idStringValue = id.stringValue OR let idIntValue = id.intValue
+let ageIntValue = age.intValue 
+       Or 
+let ageStringValue = age.stringValue
+let idStringValue = id.stringValue 
+      Or 
+let idIntValue = id.intValue
 
 this is workable with data types like: Int, Float, Double, Bool, String
 
