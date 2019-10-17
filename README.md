@@ -16,7 +16,7 @@ In short it lets you just plug & play incurring the responsibility of exploiting
      public static func dateDecodingStrategy() -> JSONDecoder.DateDecodingStrategy
 
 # Quantum
- Quantum is a special data type that is very useful in the follwoing cases
+ **Quantum is a special data type that is very useful in the follwoing cases**
 
  - let suppose we have an Object with a property id: Int but (in some cases) sometimes from backend in different APIs we are getting id as Int and in other APIs we are getting the same object with Id of type String (String containig Int).
  - In case of DataType changed from Int to float or Int to String
