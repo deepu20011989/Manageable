@@ -62,28 +62,3 @@ for Int it will return 0, for String it will return "" (blank string) for bool i
 	        self.age = age
 	    }	
 	}
-
-	    //1. convert Object to JSON
-    let person = Person(id: 10, name: "Xyz", age: 20)
-    let personJSONString = person.toJSONString()
-    print(personJSONString)
-    
-    //2. Convert Object to Dictionary<String, Any>
-    let personDictionary = try! person.toDictionary()
-    print(personDictionary)
-    
-    //3. convert JSON String to Concrete objects
-    let objPerson = Person.getObject(jsonString: personJSONString) // call getObjectList(jsonString: ) to parse if array of Person
-    print(objPerson)
-    
-    //4. convert Dictionary<String, Any> to Concrete objects
-    let objP = Person.getObject(dictionary: personDictionary) // call getObjectList(getObject: ) to parse if array of Person
-    print(objP)
-    
-    // Creating copy/clone of an object
-    let newObj = person.clone()
-    print(newObj)
-
-    let anotherPerson = objPerson.clone()
-    print(anotherPerson)
-
