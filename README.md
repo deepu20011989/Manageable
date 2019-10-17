@@ -22,10 +22,8 @@ var _id: Quantum = "acdf1234Yt"
 we can also have the specific type from these in the following way
 
 let ageIntValue = age.intValue 
-       Or 
 let ageStringValue = age.stringValue
-let idStringValue = id.stringValue 
-      Or 
+let idStringValue = id.stringValue
 let idIntValue = id.intValue
 
 this is workable with data types like: Int, Float, Double, Bool, String
