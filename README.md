@@ -8,4 +8,20 @@
 # Quantum
  Quantum is a special data type that is very useful in the follwoing cases
 
+1. let suppose we have an Object with a property id: Int but (in some cases) sometimes from backend in different APIs we are getting id as Int and in other APIs we are getting the same object with Id of type String (String containig Int).
+2. In case of DataType changed from Int to float or Int to String
 
+So these type of things can be of type Quantum and can be managed easily without writing any specific code.
+
+var age: Quantum = 10 OR var age: Quantum = "10"
+var id: Quantum = "12345"
+
+we can also have the specific type from these in the following way
+
+let ageIntValue = age.intValue OR let ageStringValue = age.stringValue
+let idStringValue = id.stringValue OR let idIntValue = id.intValue
+
+this is workable with data types like: Int, Float, Double, Bool, String
+
+if in case casting using intValue or stringValue, or to any other type failes it returns the default value of that type
+for Int it will return 0, for String it will return "" (blank string) for bool it will return false and double and float it will return 0.0
