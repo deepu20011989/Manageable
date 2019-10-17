@@ -43,22 +43,22 @@ for Int it will return 0, for String it will return "" (blank string) for bool i
 
 #Example
 
-struct Person: Manageable {
+	struct Person: Manageable {
     
-    let _id: Quantum
-    var name: String
-    var age: Int
+	    let _id: Quantum
+	    var name: String
+	    var age: Int
     
-    // Use of enum CodingKeys in case of custom keys else it will pick varable names as defualt keys for the variables
-    enum CodingKeys: String, CodingKey {
-        case _id = "person_id"
-        case name = "person_name"
-        case age = "person_age"
-    }
+	    // Use of enum CodingKeys in case of custom keys else it will pick varable names as defualt keys for the variables
+	    enum CodingKeys: String, CodingKey {
+	        case _id = "person_id"
+	        case name = "person_name"
+	        case age = "person_age"
+	    }
 
-    init(id: Quantum, name: String, age: Int) {
-        self._id = id
-        self.name = name
-        self.age = age
-    }
-}
+	    init(id: Quantum, name: String, age: Int) {
+	        self._id = id
+	        self.name = name
+	        self.age = age
+	    }	
+	}
