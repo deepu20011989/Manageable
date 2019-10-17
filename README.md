@@ -79,7 +79,7 @@ for Int it will return 0, for String it will return "" (blank string) for bool i
 
 **1. convert Object to JSON**
 	    
-	    let person = Person(id: 10, name: "Xyz", age: 20)
+	    let person = Person(id: 10, name: "Xyz", age: 20, dob: Date())
 	    let personJSONString = person.toJSONString()
 	    print(personJSONString)
     
