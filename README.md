@@ -39,3 +39,26 @@ This is workable with data types like: Int, Float, Double, Bool, String
 
 If in case casting using intValue or stringValue, or to any other type fails it returns the default value of that type.
 for Int it will return 0, for String it will return "" (blank string) for bool it will return false and double and float it will return 0.0.
+
+
+#Example
+
+struct Person: Manageable {
+    
+    let _id: Quantum
+    var name: String
+    var age: Int
+    
+    // Use of enum CodingKeys in case of custom keys else it will pick varable names as defualt keys for the variables
+    enum CodingKeys: String, CodingKey {
+        case _id = "person_id"
+        case name = "person_name"
+        case age = "person_age"
+    }
+
+    init(id: Quantum, name: String, age: Int) {
+        self._id = id
+        self.name = name
+        self.age = age
+    }
+}
