@@ -6,6 +6,6 @@
      public static func dateDecodingStrategy() -> JSONDecoder.DateDecodingStrategy
 
 # Quantum
-## Quantum is a special data type that is very useful in the follwoing cases
+ Quantum is a special data type that is very useful in the follwoing cases
 
 
