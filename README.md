@@ -28,5 +28,5 @@ let idIntValue = id.intValue
 
 this is workable with data types like: Int, Float, Double, Bool, String
 
-if in case casting using intValue or stringValue, or to any other type failes it returns the default value of that type
+If in case casting using intValue or stringValue, or to any other type failes it returns the default value of that type
 for Int it will return 0, for String it will return "" (blank string) for bool it will return false and double and float it will return 0.0
